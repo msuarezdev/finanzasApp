@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación Presupuesto</title>
+    <link href="css/estilos.css" rel='stylesheet'/>
+    <script src='js/Dato.js'></script>
+    <script src='js/Ingreso.js'></script>
+    <script src='js/Egreso.js'></script>
+    <script src='js/app.js'></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body onload="cargarApp()">
+    <div class="header">
+        <div class="presupuesto">
+            <div class="presupuesto__titulo">
+                PRESUPUESTO DISPONIBLE
+            </div>
+            <div class="presupuesto__valor" id="presupuesto">$ 15,941.80</div>
+            <div class="presupuesto__ingreso limpiarEstilos">
+                <div class="presupuesto__ingreso--texto">Ingresos</div>
+                <div class="derecha">
+                    <div class="presupuesto__ingreso--valor" id="ingresos">+ 5,000.00</div>
+                    <div class="presupuesto__ingreso--porcentaje"> </div>
+                </div>
+            </div>
+            <div class="presupuesto__egreso limpiarEstilos">
+                <div class="presupuesto__egreso--texto">Egresos</div>
+                <div class="derecha limpiarEstilos">
+                    <div class="presupuesto__egreso--valor" id="egresos">- 1,800.00</div>
+                    <div class="presupuesto__egreso--porcentaje" id="porcentaje">32%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contenedor limpiarEstilos">
+        <div class="ingreso">
+            <h2 class="ingreso__titulo">
+                Ingresos
+            </h2>
+            <div id="lista__ingresos">
+                <div class="elemento limpiarEstilos" >
+                    <div class="elemento__descripcion">Salario</div>
+                    <div class="derecha limpiarEstilos">
+                        <div class="elemento__valor">
+                            + 128.000,00
+                        </div>
+                        <div class="elemento__eliminar">
+                            <button class="elemento__eliminar--btn">
+                                <ion-icon name="close-circle-outline"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="elemento limpiarEstilos" >
+                    <div class="elemento__descripcion">Venta cripto</div>
+                    <div class="derecha limpiarEstilos">
+                        <div class="elemento__valor">
+                            + 12.000,00
+                        </div>
+                        <div class="elemento__eliminar">
+                            <button class="elemento__eliminar--btn">
+                                <ion-icon name="close-circle-outline"></ion-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form id="form" onsubmit="return false;">
+        <div class="agregar">
+            <div class="agregar__contenedor">
+                <select class="agregar__tipo" id="tipo">
+                    <option value="ingreso" selected>+</option>
+                    <option value="egreso" selected>-</option>
+                </select>
+                <input type="text" class="agregar__descripcion" placeholder="Agregar Descripción" id="descripcion">
+                <input type="number" class="agregar__valor" placeholder="Valor" id="valor" step="any">
+                <button class="agregar__btn" onclick="agregarDato()">
+                    <ion-icon name="checkmark-circle-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </form>
+
+</body>
+</html>
