@@ -4,13 +4,14 @@ const ingresos = [
 ];
 
 const egresos = [
-    new Egreso('Pago alquiler', 40000.00),
+    new Egreso('Pago alquiler', 50000.00),
     new Egreso('Compra de ropa', 6000.00)
 ];
 
 let cargarApp = ()=>{
     cargarHeader();
     cargarIngresos();
+    cargarEgresos();
 }
 
 let totalIngresos = ()=>{
@@ -46,36 +47,76 @@ const formatoPorcentaje = (valor)=>{
     return valor.toLocaleString('es-AR',{style:'percent', minimumFractionDigits:2});
 }
 
-const cargarIngresos = () =>{
+const cargarIngresos = ()=>{
     let ingresosHTML = '';
-    for (let ingreso of ingresos) {
+    for(let ingreso of ingresos) {
         ingresosHTML += crearIngresoHTML(ingreso);
         
     }
     document.getElementById('lista__ingresos').innerHTML = ingresosHTML;
 }
 
-const crearIngresoHTML = (ingreso) =>{
-    let ingresosHTML = `
+const crearIngresoHTML = (ingreso)=>{
+    let ingresoHTML = `
     <div class="elemento limpiarEstilos" >
-                    <div class="elemento__descripcion">${ingreso.descripcion}</div>
+        <div class="elemento__descripcion">${ingreso.descripcion}</div>
+        <div class="derecha limpiarEstilos">
+            <div class="elemento__valor">+ ${formatoMoneda(ingreso.valor)}</div>
+            <div class="elemento__eliminar">
+                <button class="elemento__eliminar--btn">
+                    <ion-icon name="close-circle-outline"
+                    onclick='eliminarIngreso(${ingreso.id})'></ion-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+    `;
+    return ingresoHTML;
+}
+
+const eliminarIngreso =(id)=>{
+    let indiceEliminar = ingresos.findIndex(ingreso => ingreso.id === id);
+    ingresos.splice(indiceEliminar, 1);
+    cargarHeader();
+    cargarIngresos();
+}
+
+const cargarEgresos = ()=>{
+    let egresosHTML = '';
+    for(let egreso of egresos){
+        egresosHTML += crearEgresoHTML(egreso);
+    }
+    document.getElementById('lista__egresos').innerHTML = egresosHTML;
+}
+
+const crearEgresoHTML = (egreso)=>{
+    let egresoHTML = `
+    <div class="elemento limpiarEstilos">
+                    <div class="elemento__descripcion"> ${egreso.descripcion}</div>
                     <div class="derecha limpiarEstilos">
-                        <div class="elemento__valor">
-                            ${formatoMoneda(ingreso.valor)}
-                        </div>
+                        <div class="elemento__valor">- ${formatoMoneda(egreso.valor)}</div>
+                        <div class="elemento__porcentaje">${formatoPorcentaje(egreso.valor/totalEgresos())}</div>
                         <div class="elemento__eliminar">
                             <button class="elemento__eliminar--btn">
-                                <ion-icon name="close-circle-outline"></ion-icon>
+                                <ion-icon name="close-circle-outline"
+                                onclick='eliminarEgreso(${egreso.id})'></ion-icon>
                             </button>
                         </div>
                     </div>
                 </div>
     `;
-    return ingresosHTML
+    return egresoHTML;
 }
 
-let agregarDato = ()=>{
-    let forma = document.forms['form'];
+let eliminarEgreso = ()=>{
+    let indiceEliminar = egresos.findIndex(egreso => egreso.id === id);
+    egresos.splice(indiceEliminar, 1);
+    cargarHeader();
+    cargarEgreso();
+}
+
+const agregarDato = ()=>{
+    let form = document.forms['form'];
     let tipo = form['tipo'];
     let descripcion = form['descripcion']; 
     let valor = form['valor'];
@@ -83,13 +124,25 @@ let agregarDato = ()=>{
         if (tipo.value === 'ingreso') {
             ingresos.push(new Ingreso(descripcion.value, +valor.value));
             cargarHeader();
-            cargarIngreso();
+            cargarIngresos();
         }
         else if(tipo.value === 'egreso'){
             egresos.push(new Egreso(descripcion.value, +valor.value));
             cargarHeader();
-            cargarEgreso();
+            cargarEgresos();
         }
     }
     
 }
+//local storage
+const guardarDatosJSON = ()=>{
+    const datosForm = {descripcion:"", tipo:"", valor:0}
+        datosForm.descripcion = descripcion.value;
+        datosForm.tipo = tipo.value;
+        datosForm.valor = valor.value;
+        localStorage.setItem("datosForm", JSON.stringify(datosForm))
+}
+const guardarDatos = document.querySelector("#guardar");
+
+guardarDatos.addEventListener("click", guardarDatosJSON)
+
