@@ -135,14 +135,27 @@ const agregarDato = ()=>{
     
 }
 //local storage
-const guardarDatosJSON = ()=>{
-    const datosForm = {descripcion:"", tipo:"", valor:0}
-        datosForm.descripcion = descripcion.value;
-        datosForm.tipo = tipo.value;
-        datosForm.valor = valor.value;
+const guardarDatosJSON = ()=> {
+    const datosFormulario = {descripcion: "", tipo: "", valor: 0}
+        datosFormulario.descripcion = descripcion.value
+        datosFormulario.tipo = tipo.value
+        datosFormulario.valor = valor.value
         localStorage.setItem("datosForm", JSON.stringify(datosForm))
 }
 const guardarDatos = document.querySelector("#guardar");
+guardarDatos.addEventListener("click", guardarDatosJSON());
 
-guardarDatos.addEventListener("click", guardarDatosJSON)
+const recuperarDatosJSON = ()=> {
+    if (localStorage.getItem("datosForm") != null)
+    {
+        datosForm = JSON.parse(localStorage.getItem("datosForm"))
+        descripcion.value = datosForm.descripcion
+        tipo.value = datosForm.tipo
+        valor.value = datosForm.value
+    }
+}
+recuperarDatosJSON ()
+
+
+
 
