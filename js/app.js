@@ -34,7 +34,7 @@ let cargarHeader = ()=>{
     let presupuesto = totalIngresos() - totalEgresos();
     let porcentajeEgreso = totalEgresos()/totalIngresos();
     document.getElementById('presupuesto').innerHTML = formatoMoneda(presupuesto); 
-    document.getElementById('porcentaje').innerHTML = formatoPorcentaje(porcentajeEgreso());
+    document.getElementById('porcentaje').innerHTML = formatoPorcentaje(porcentajeEgreso);
     document.getElementById('ingresos').innerHTML = formatoMoneda(totalIngresos());
     document.getElementById('egresos').innerHTML = formatoMoneda(totalEgresos()); 
 }
@@ -108,11 +108,15 @@ const crearEgresoHTML = (egreso)=>{
     return egresoHTML;
 }
 
-let eliminarEgreso = ()=>{
+let eliminarEgreso = (id)=>{
     let indiceEliminar = egresos.findIndex(egreso => egreso.id === id);
     egresos.splice(indiceEliminar, 1);
     cargarHeader();
-    cargarEgreso();
+    cargarEgresos();
+}
+
+function alerta(){ 
+    Swal.fire({title:"¡Listo!", text:"El dato fue agregado correctamente.", icon:"success", confirmButtonText:"OK", timer:3000 })
 }
 
 const agregarDato = ()=>{
@@ -131,6 +135,7 @@ const agregarDato = ()=>{
             cargarHeader();
             cargarEgresos();
         }
+        return alerta();
     }
     
 }
@@ -145,4 +150,5 @@ const guardarDatosJSON = ()=>{
 const guardarDatos = document.querySelector("#guardar");
 
 guardarDatos.addEventListener("click", guardarDatosJSON)
+
 
