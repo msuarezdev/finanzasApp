@@ -33,8 +33,8 @@ body {
     padding-bottom: 100px;
     color: #fff;
     background: url(/img/pngwing_ccexpress.png), #7b4397;
-    background: url(/img/pngwing_ccexpress.png), -webkit-gradient(linear, right top, left top, from(#43975f), to(#F74D2C));
-    background: url(/img/pngwing_ccexpress.png), linear-gradient(to left, #43975f, #F74D2C);
+    background: url(/img/pngwing_ccexpress.png), -webkit-gradient(linear, right top, left top, from(#FF5049), to(#28B9B5));
+    background: url(/img/pngwing_ccexpress.png), linear-gradient(to left, #FF5049, #28B9B5);
     
 }
 
@@ -264,3 +264,81 @@ h2 {
 .elemento:hover .elemento__eliminar--btn { display: block; }
 .elemento:hover .elemento__valor { transform: translateX(-20px); }
 .elemento:hover .elemento__porcentaje { transform: translateX(-20px); }
+
+/*-.-.-.-.-CONVERSOR DE DIVISA-.-.-.-.-*/
+.conversorDivisa{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+.conversorDivisa__titulo{
+    color:#FF5049
+}
+.totalCambio--btn{
+    color: white;
+    background: #28B9B5;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 5px 12px;}
+.moneda{
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+.moneda select{
+    padding: 10px 20px 10px 10px;
+    border: 1px solid #dedede;
+    font-size: 16px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #f7f7f7;
+}
+.moneda input {
+    border: 1px solid #e7e7e7;
+    font-size: 30px;
+    text-align: right;
+    transition: border 0.3s;
+}
+.totalCambio__container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.cambio{
+    color: #28B9B5;
+    font-size: 1.2em;
+    padding: 0 10px;
+    font-weight: 600;
+}
+select:focus, input:focus, button:focus{
+    outline: 0;
+}
+
+@media (max-width:600px) {
+    .moneda input{
+        width: 200px;
+    }
+    
+}
+
+/*-.-.-.-.-FOOTER-.-.-.-.-.-*/
+.container-fluid span{
+color:#FF5049;
+font-weight: bold;
+}
+
+.container-fluid a{
+    text-decoration: none;
+}
+
+.fa-brands {
+    margin-left: 0.5em;
+    font-size: 1.5em;
+    color:#28B9B5;
+}
