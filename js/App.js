@@ -1,13 +1,13 @@
 const ingresos = [
-    new Ingreso('Sueldo', 130000.00),
-    new Ingreso('Venta pagina web',40000.00),
-    new Ingreso('nuevo ingreso', 5000)
+    //new Ingreso('Sueldo', 130000.00),
+    //new Ingreso('Venta pagina web',40000.00),
+    //new Ingreso('nuevo ingreso', 5000)
 ];
 
 const egresos = [
-    new Egreso('Pago alquiler', 50000.00),
-    new Egreso('Compra de ropa', 6000.00),
-    new Egreso('Compra Alimentos',10000.00)
+    //new Egreso('Pago alquiler', 50000.00),
+    //new Egreso('Compra de ropa', 6000.00),
+    //new Egreso('Compra Alimentos',10000.00)
 ];
 
 let cargarApp = ()=>{
@@ -116,28 +116,6 @@ let eliminarEgreso = (id)=>{
     cargarEgresos();
 }
 
-//const btnEliminar = document.querySelector("#btn-eliminar")
-
-//btnEliminar.addEventListener('click', ()=> {
-
-//    Swal.fire({
-//        title: '¿Estás seguro de eliminar este dato?',
-//        icon: 'warning',
-//        showCancelButtonText: true,
-//        confirmButtonText: 'Sí',
-//        showCancelButtonText:'No'
-//    }).then((result) => {
-//        if (result.isConfirmed) {
-//            Swal.fire({
-//                title:'Eliminado',
-//                icon: 'success',
-//                text: 'el dato se ha eliminado con éxito'
-//            })
-//        }
-//    })
-//
-//})
-
 function alerta(){ 
     Swal.fire({title:"¡Listo!", text:"El dato fue agregado correctamente.", icon:"success", confirmButtonText:"OK", timer:3000 })
 }
@@ -163,74 +141,32 @@ const agregarDato = ()=>{
     
 }
 //local storage
+const descripcion = document.querySelector("#descripcion")
+const tipo = document.querySelector("#tipo")
+const valor = document.querySelector("#valor")
+
+
+
 const guardarDatosJSON = ()=>{
-    const datosForm = {descripcion:"", tipo:"", valor:0}
+    const datosForm = {descripcion: "", tipo:"", valor:0}
         datosForm.descripcion = descripcion.value;
         datosForm.tipo = tipo.value;
         datosForm.valor = valor.value;
-        localStorage.setItem("datosForm", JSON.stringify(datosForm))
+        localStorage.setItem("datosDelForm", JSON.stringify(datosForm))
 }
 const guardarDatos = document.getElementById('guardar')
-
 
 guardarDatos.addEventListener("click", guardarDatosJSON)
 
 
 const recuperarDatosJSON = ()=> {
-    if (localStorage.getItem("datosForm") != null)
+    if (localStorage.getItem("datosDelForm") != null)
     {
-        datosForm = JSON.parse(localStorage.getItem("datosForm"))
-        descripcion.value = datosForm.descripcion
-        tipo.value = datosForm.tipo
-        valor.value = datosForm.value
+        datosDelForm = JSON.parse(localStorage.getItem("datosDelForm"))
+        descripcion.value = datosDelForm.descripcion
+        tipo.value = datosDelForm.tipo
+        valor.value = datosDelForm.value
     }
 }
 
-//Convertor
-const select = document.querySelectorAll('.currency');
-    const number = document.getElementById("number");
-    const output = document.getElementById("output");
-
-
-    fetch('https://api.frankfurter.app/currencies').then((data) => data.json())
-      .then((data) => {
-        display(data);
-      });
-
-
-    function display(data) {
-      const entries = Object.entries(data);
-      for (var i = 0; i < entries.length; i++) {
-        select[0].innerHTML += `<option value="${entries[i][0]}">${entries[i][0]} : ${entries[i][1]}</option>`;
-        select[1].innerHTML += `<option value="${entries[i][0]}">${entries[i][0]} : ${entries[i][1]}</option>`;
-      }
-    }
-
-
-
-    function updatevalue() {
-      let currency1 = select[0].value;
-      let currency2 = select[1].value;
-
-      let value = number.value;
-
-
-      if (currency1 != currency2) {
-        convert(currency1, currency2, value);
-      } else {
-        alert("Choose Diffrent Currency");
-      }
-    }
-
-
-    function convert(currency1, currency2, value) {
-      const host = "api.frankfurter.app";
-
-      fetch(`https://${host}/latest?amount=${value}&from=${currency1}&to=${currency2}`)
-        .then((val) => val.json())
-        .then((val) => {
-          console.log(Object.values(val.rates)[0]);
-          output.value = Object.values(val.rates)[0];
-        });
-
-    }
+recuperarDatosJSON()
